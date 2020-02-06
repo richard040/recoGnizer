@@ -1,0 +1,2 @@
+# gartleyfinder
+Gartley pattern finder.

@@ -1,2 +1,2 @@
-# gartleyfinder
+# recoGnizer
 Gartley pattern finder.

@@ -14,6 +14,9 @@ data = data[['open', 'high', 'low', 'close', 'volume']]
 data.drop_duplicates(keep='last', inplace=True)
 price = data.iloc[:, 3]
 
+plt.title("Peaks and patterns")
+plt.plot(price.values, color='#3973ac')
+
 # Find Gartley
 tolerance = 0.2
 order = 10
@@ -21,10 +24,6 @@ order = 10
 for i in range(100, len(price)):
     idx, current_idx, current_pattern, start_idx, end_idx = find_peak(price.values[:i], order)
     peaks = price.values[idx]
-
-    if i == 100:  # to make sure the price values only get plotted once, but before the found pattern
-        plt.title("Peaks and patterns")
-        plt.plot(price.values, color='#3973ac')
 
     XA = current_pattern[1] - current_pattern[0]
     AB = current_pattern[2] - current_pattern[1]
@@ -41,10 +40,10 @@ for i in range(100, len(price)):
         print("Start date: ", date_start)
         print("End date: ", date_end)
 
-        plt.plot(np.arange(start_idx, i), price.values[start_idx:i])
         plt.plot(current_idx, current_pattern, color='red')
+        # plt.plot(np.arange(start_idx, i), price.values[start_idx:i])
 
 # Show peaks and patterns
-plt.scatter(idx, peaks, color='red')
+plt.scatter(idx, peaks, color='green')
 plt.show()
 

@@ -9,10 +9,10 @@ from dateutil import parser
 from tqdm import tqdm
 
 # API
-bitmex_api_key = 'Kex0Rj458lqwRsVo3uOpu9XF'
-bitmex_api_secret = '1bBiR3A0Msyw-TcmN6Wqy5R-XJnMaMYIPAY_FR9msn7XacEb'
-binance_api_key = '9GtSsxCPRWR2sBGJpxLdeUMeaTZkgP99WH5XRHkkgCFVFcU4UFWzDqfViA8VUW4G'
-binance_api_secret = 'PfkWEhwWuKh7YCBCL2PtAJKVnAK6NqKgrOYtnsE9yqiAMTRtkiVHPjA2kPdKx19U'
+bitmex_api_key = 'YOUR BITMEX API KEY'
+bitmex_api_secret = 'YOUR BITMEX SECRET KEY'
+binance_api_key = 'YOUR BINANCE API KEY'
+binance_api_secret = 'YOUR BINANCE SECRET KEY'
 
 # CONSTANTS
 bin_sizes = {"1m": 1, "5m": 5, "1h": 60, "4h": 240, "1d": 1440}

@@ -1,19 +1,25 @@
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
+from get_data import *
 from harmonic_patterns import *
 
-# Dataset import
-my_date_parser = lambda x: pd.datetime.strptime(x, '%d.%m.%Y %H:%M:%S.%f')
-data = pd.read_csv('Data/EURUSD_Candlestick_4_Hour_ASK_01.07.2019-06.02.2020.csv',
-                   index_col='Gmt time',
-                   parse_dates=['Gmt time'],
-                   date_parser=my_date_parser)
-data.columns = [['open', 'high', 'low', 'close', 'volume']]
-data = data[['open', 'high', 'low', 'close', 'volume']]
-data.drop_duplicates(keep='last', inplace=True)
-price = data.iloc[:, 3]
+data, data_from = get_all_binance("ETHBTC", "4h", save=False)
+# data, data_from = get_all_csv('Data/EURUSD_Candlestick_4_Hour_ASK_01.07.2019-06.02.2020.csv')
 
+#####################
+# BITMEX TO BE TESTED
+# data, data_from = get_all_bitmex("ETHUSD", "5m", save=False)
+#####################
+
+if data_from == "is Binance" or data_from == "is Bitmex":
+    data = data[['open', 'high', 'low', 'close', 'volume']]
+    price = data.iloc[:, 3].astype(float)
+elif data_from == "is CSV":
+    data.columns = [['open', 'high', 'low', 'close', 'volume']]
+    data = data[['open', 'high', 'low', 'close', 'volume']]
+    data.drop_duplicates(keep='last', inplace=True)
+    price = data.iloc[:, 3]
+
+plt.figure(1)
 plt.title("Peaks and patterns")
 plt.plot(price.values, color='#3973ac')
 
@@ -32,18 +38,20 @@ for i in range(100, len(price)):
 
     price_moves = [XA, AB, BC, CD]
 
-    gartley_result = is_gartley(price_moves, tolerance)
+    result = is_gartley(price_moves, tolerance)
 
-    if gartley_result == 1 or gartley_result == -1:
+    if result == 1 or result == -1:
         date_start = data.iloc[start_idx].name
         date_end = data.iloc[end_idx].name
         print("Start date: ", date_start)
         print("End date: ", date_end)
 
+        plt.figure(1)
         plt.plot(current_idx, current_pattern, color='red')
         # plt.plot(np.arange(start_idx, i), price.values[start_idx:i])
 
 # Show peaks and patterns
+plt.figure(1)
 plt.scatter(idx, peaks, color='green')
 plt.show()
 
